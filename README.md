@@ -10,15 +10,7 @@ Shoppers can browse products by listed categories, add products to their cart, a
 
 Vendors can add products to existing categories and process orders placed by shoppers. 
 
-
-
-
-
 #### __PLEASE NOTE THAT THIS APPLICATION IS STILL IN ACTIVE DEVELOPMENT, AND THE CURRENT CODEBASE DOES NOT REPRESENT THE ENTIRE APPLICATION.__
-
-
-
-
 
 ### Architecture
 
@@ -57,3 +49,7 @@ Vendors can add products to existing categories and process orders placed by sho
 ##### Encryption
 
 - Argon2 & CryptoJS  
+
+##### Content Delivery
+
+- Cloudinary
