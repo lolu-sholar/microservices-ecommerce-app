@@ -24,15 +24,23 @@ Vendors can add products to existing categories and process orders placed by sho
 
 - Microservices
 
-### Stack
+### Technologies
 
 ##### API
 
 - Express.js (Node.js)
 
+##### Schema Validation
+
+- Joi
+
 ##### Authentication
 
 - JWT
+
+##### API Query Engine
+
+- Syntaxe
 
 ##### Database
 
@@ -45,3 +53,7 @@ Vendors can add products to existing categories and process orders placed by sho
 ##### Containerization
 
 - Docker
+
+##### Encryption
+
+- Argon2 & CryptoJS  
