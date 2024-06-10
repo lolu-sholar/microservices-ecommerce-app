@@ -1,0 +1,79 @@
+services:
+  api:
+    build: ./api
+    ports:
+      - "9001:9000" # host:internal
+    networks:
+      - microservices-network
+    depends_on:
+      user:
+        condition: service_started
+      rabbitmq:
+        condition: service_healthy
+        
+  user:
+    build: ./user
+    ports:
+      - "9002:9000" # host:internal
+    networks:
+      - microservices-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  notification:
+    build: ./notification
+    ports:
+      - "9003:9000" # host:internal
+    networks:
+      - microservices-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  product:
+    build: ./product
+    ports:
+      - "9004:9000" # host:internal
+    networks:
+      - microservices-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    command: mongod --quiet
+    ports:
+      - "27017:27017"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh mongodb://localhost:27017/?authSource=admin --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - microservices-network
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 30s
+      timeout: 30s
+      retries: 10
+
+networks:
+  microservices-network:
+    driver: bridge
